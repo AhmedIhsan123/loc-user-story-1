@@ -12,6 +12,7 @@
 	</head>
 	<body>
 		<main>
+			<h1>Edit Division</h1>
 			<form>
 				<!-- Fieldset to select department -->
 				<fieldset>
@@ -26,12 +27,12 @@
 						<option value="Aviation">Aviation</option>
 						<option value="Trades">Trades</option>
 					</select>
-					<button id="division-btn">submit</button>
 				</fieldset>
 
 				<!-- Fieldset to edit information -->
 				<fieldset>
-					<label for="dean">Current Dean: </label>
+					<legend>Current Info</legend>
+					<label for="dean">Dean: </label>
 					<input
 						type="text"
 						id="dean-input"
@@ -39,7 +40,7 @@
 						value="John Smith"
 						disabled
 					/>
-					<label for="pen">Current PEN Contact: </label>
+					<label for="pen">PEN Contact: </label>
 					<input
 						type="text"
 						id="pen-input"
@@ -47,7 +48,7 @@
 						value="James Ken"
 						disabled
 					/>
-					<label for="loc">Current LOC Representative: </label>
+					<label for="loc">LOC Representative: </label>
 					<input
 						type="text"
 						id="loc-input"
@@ -55,7 +56,7 @@
 						value="Alexa Arnold"
 						disabled
 					/>
-					<label for="chair">Current Chair: </label>
+					<label for="chair">Chair: </label>
 					<input
 						type="text"
 						id="chair-input"
@@ -66,9 +67,11 @@
 				</fieldset>
 
 				<!-- Buttons -->
-				<button id="save-btn">Save</button>
-				<button id="cancel-btn">Cancel</button>
-				<button id="edit-form-btn">Edit Form</button>
+				<div id="buttons-container">
+					<button id="save-btn" class="button">Save</button>
+					<button id="cancel-btn" class="button">Cancel</button>
+					<button id="edit-form-btn" class="button">Edit Form</button>
+				</div>
 			</form>
 		</main>
 	</body>

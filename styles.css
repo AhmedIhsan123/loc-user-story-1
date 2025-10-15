@@ -1,11 +1,88 @@
+:root {
+	--base-color: #198754;
+}
+
 * {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
 }
+
 body {
+	display: flex;
+	justify-content: center; /* centers horizontally */
+	align-items: center; /* centers vertically */
+	height: 100vh; /* full viewport height */
+	margin: 0; /* remove default margin */
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: #f4f4f4;
 	color: #333;
 	line-height: 1.6;
+}
+
+main {
+	width: 40%;
+	padding: 0 1rem 2rem 1rem;
+}
+
+main h1 {
+	text-align: center;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+fieldset {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	padding: 1rem;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+
+input {
+	padding: 0.5rem 1rem;
+}
+
+label {
+	color: black;
+	font-style: italic;
+}
+
+select {
+	padding: 0.25rem;
+}
+
+#buttons-container {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 0.25rem;
+	border: 1px solid gray;
+	padding: 0.25rem;
+	border-radius: 5px;
+}
+
+.button {
+	background-color: #198754;
+	border-radius: 5px;
+	color: white;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	cursor: pointer;
+	border: none;
+	transition: all 0.3s ease;
+}
+
+.button:hover {
+	background-color: #125333;
+	transform: rotate(-2dg) scale(1.05);
+}
+
+.button:active {
+	background-color: #0d3a24;
+	transform: scale(0.97);
 }

@@ -10,5 +10,66 @@
 		<!-- Link JavaScript -->
 		<script src="app.js"></script>
 	</head>
-	<body></body>
+	<body>
+		<main>
+			<form>
+				<!-- Fieldset to select department -->
+				<fieldset>
+					<legend>Select a Department</legend>
+					<label for="division">Choose Divsion</label>
+					<select id="division" name="division">
+						<option value="">-- Please Select A Department --</option>
+						<option value="Math">Math</option>
+						<option value="English">English</option>
+						<option value="STEM">STEM</option>
+						<option value="Fine Arts">Fine Arts</option>
+						<option value="Aviation">Aviation</option>
+						<option value="Trades">Trades</option>
+					</select>
+					<button id="division-btn">submit</button>
+				</fieldset>
+
+				<!-- Fieldset to edit information -->
+				<fieldset>
+					<label for="dean">Current Dean: </label>
+					<input
+						type="text"
+						id="dean-input"
+						name="dean-input"
+						value="John Smith"
+						disabled
+					/>
+					<label for="pen">Current PEN Contact: </label>
+					<input
+						type="text"
+						id="pen-input"
+						name="pen-input"
+						value="James Ken"
+						disabled
+					/>
+					<label for="loc">Current LOC Representative: </label>
+					<input
+						type="text"
+						id="loc-input"
+						name="loc-input"
+						value="Alexa Arnold"
+						disabled
+					/>
+					<label for="chair">Current Chair: </label>
+					<input
+						type="text"
+						id="chair-input"
+						name="chair-input"
+						value="Joe Guy"
+						disabled
+					/>
+				</fieldset>
+
+				<!-- Buttons -->
+				<button id="save-btn">Save</button>
+				<button id="cancel-btn">Cancel</button>
+				<button id="edit-form-btn">Edit Form</button>
+			</form>
+		</main>
+	</body>
 </html>

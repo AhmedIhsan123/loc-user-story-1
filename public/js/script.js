@@ -1,33 +1,17 @@
-class Department {
-	// Class constructor
-	constructor(division, dean, pen, locRep, chair) {
-		this.divisionName = division;
-		this.deanName = dean;
-		this.penContact = pen;
-		this.locRep = locRep;
-		this.chairName = chair;
-	}
+import { Department } from "./departments.js";
 
-	// Class getters
-	getDivName() {
-		return this.divisionName;
-	}
+const departments = [
+	new Department("Fine Arts", "Christie Gilliland", "Liz Peterson", "Monica Bowen", "Paul Metevier"), 
+	new Department("Humanities", "Jamie Fitzgerald", "Liz Peterson", "Lisa Luengo", "Katie Cunnion "), 
+	new Department("Social Science", "Christie Gilliland", "Liz Peterson", "Joy Crawford", "Mark Thomason")
+];
 
-	getDeanName() {
-		return this.deanName;
-	}
-
-	getPenContact() {
-		return this.penContact;
-	}
-
-	getLocRep() {
-		return this.locRep;
-	}
-
-	getChairName() {
-		return this.chairName;
-	}
+const list = document.getElementById('division');
+for (var i = 0; i < departments.length; i++) {
+	const entry = document.createElement('option');
+	entry.setAttribute("value", departments[i].getDivName().toLowerCase());
+	entry.textContent = departments[i].getDivName();
+	list.appendChild(entry);
 }
 
 function editForm() {

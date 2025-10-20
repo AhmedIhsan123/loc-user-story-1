@@ -86,3 +86,8 @@ select {
 	background-color: #0d3a24;
 	transform: scale(0.97);
 }
+
+#save-btn,
+#cancel-btn {
+	display: none;
+}

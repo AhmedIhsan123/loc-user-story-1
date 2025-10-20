@@ -31,3 +31,29 @@ for (var i = 0; i < departments.length; i++) {
 	entry.textContent = departments[i].getDivName();
 	list.appendChild(entry);
 }
+
+function editForm() {
+	const saveBtn = document.getElementById("save-btn");
+	const cancelBtn = document.getElementById("cancel-btn");
+
+	saveBtn.style.display = "block";
+	cancelBtn.style.display = "block";
+}
+
+function saveEdits() {
+	alert("Changes have been made successfully!");
+
+	const saveBtn = document.getElementById("save-btn");
+	const cancelBtn = document.getElementById("cancel-btn");
+
+	saveBtn.style.display = "none";
+	cancelBtn.style.display = "none";
+}
+
+function cancelEdits() {
+	const saveBtn = document.getElementById("save-btn");
+	const cancelBtn = document.getElementById("cancel-btn");
+
+	saveBtn.style.display = "none";
+	cancelBtn.style.display = "none";
+}

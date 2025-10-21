@@ -14,7 +14,7 @@
 	<body>
 		<main>
 			<h1>Edit Division</h1>
-			<form>
+			<form id="form" action="" method="get">
 				<!-- Fieldset to select department -->
 				<fieldset>
 					<legend>Select a Department</legend>
@@ -32,8 +32,8 @@
 						type="text"
 						id="dean-input"
 						name="dean-input"
-						value="John Smith"
 						class="input-fields"
+						required
 						disabled
 					/>
 					<label for="pen">PEN Contact: </label>
@@ -41,8 +41,8 @@
 						type="text"
 						id="pen-input"
 						name="pen-input"
-						value="James Ken"
 						class="input-fields"
+						required
 						disabled
 					/>
 					<label for="loc">LOC Representative: </label>
@@ -50,8 +50,8 @@
 						type="text"
 						id="loc-input"
 						name="loc-input"
-						value="Alexa Arnold"
 						class="input-fields"
+						required
 						disabled
 					/>
 					<label for="chair">Chair: </label>
@@ -59,17 +59,17 @@
 						type="text"
 						id="chair-input"
 						name="chair-input"
-						value="Joe Guy"
 						class="input-fields"
+						required
 						disabled
 					/>
 				</fieldset>
 
 				<!-- Buttons -->
 				<div id="buttons-container">
-					<button id="save-btn" class="button">Save</button>
-					<button id="cancel-btn" class="button">Cancel</button>
-					<button class="button" id="edit-form-btn" type="button">
+					<button id="save-btn" class="button" type="submit">Save</button>
+					<button id="cancel-btn" class="button" type="button">Cancel</button>
+					<button class="button" id="edit-form-btn" type="button" disabled>
 						Edit Form
 					</button>
 				</div>

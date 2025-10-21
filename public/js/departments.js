@@ -28,4 +28,25 @@ export class Department {
 	getChairName() {
 		return this.chairName;
 	}
+
+	// Class setters
+	setDivName(division) {
+		this.divisionName = division;
+	}
+
+	setDeanName(dean) {
+		this.deanName = dean;
+	}
+
+	setPenContact(pen) {
+		this.penContact = pen;
+	}
+
+	setLocRep(locRep) {
+		this.locRep = locRep;
+	}
+
+	setChairName(chair) {
+		this.chairName = chair;
+	}
 }

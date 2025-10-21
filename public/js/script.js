@@ -1,158 +1,203 @@
 import { Department } from "./departments.js";
 
 // Global variables
-const editFormBtn = document.getElementById("edit-form-btn");
-const cancelBtn = document.getElementById("cancel-btn");
-const saveBtn = document.getElementById("save-btn");
-const divisionSelect = document.getElementById("division");
-const inputFields = document.querySelectorAll(".input-fields");
-const formRef = document.getElementById("form");
-const departments = [
-	new Department(
-		"Fine Arts",
-		"Christie Gilliland",
-		"Liz Peterson",
-		"Monica Bowen",
-		"Paul Metevier"
-	),
-	new Department(
-		"Humanities",
-		"Jamie Fitzgerald",
-		"Liz Peterson",
-		"Lisa Luengo",
-		"Katie Cunnion "
-	),
-	new Department(
-		"Social Science",
-		"Christie Gilliland",
-		"Liz Peterson",
-		"Joy Crawford",
-		"Mark Thomason"
-	),
-];
+const form = {
+	ref: document.getElementById("form"),
+	inputFields: new Map([
+		["division", document.getElementById("division")],
+		["dean", document.getElementById("dean-input")],
+		["pen", document.getElementById("pen-input")],
+		["loc", document.getElementById("loc-input")],
+		["chair", document.getElementById("chair-input")],
+	]),
+	fieldsArr: document.querySelectorAll(".input-fields"),
+	btns: new Map([
+		["save", document.getElementById("save-btn")],
+		["edit", document.getElementById("edit-form-btn")],
+		["cancel", document.getElementById("cancel-btn")],
+	]),
+	departments: [
+		new Department(
+			"Fine Arts",
+			"Christie Gilliland",
+			"Liz Peterson",
+			"Monica Bowen",
+			"Paul Metevier"
+		),
+		new Department(
+			"Humanities",
+			"Jamie Fitzgerald",
+			"Liz Peterson",
+			"Lisa Luengo",
+			"Katie Cunnion"
+		),
+		new Department(
+			"Social Science",
+			"Christie Gilliland",
+			"Liz Peterson",
+			"Joy Crawford",
+			"Mark Thomason"
+		),
+	],
+};
 
-formRef.addEventListener("submit", function (event) {
-	event.preventDefault();
+// Initialize the dropdown code
+populateDepartmentDropdown();
+addEventListeners();
+form.ref.addEventListener("submit", function (event) {
+	event.preventDefault(); // Prevent form from actually submitting
 });
 
-// Fill departments select menu
-for (var i = 0; i < departments.length; i++) {
-	const entry = document.createElement("option");
-	entry.setAttribute("value", departments[i].getDivName());
-	entry.textContent = departments[i].getDivName();
-	divisionSelect.appendChild(entry);
+// Function to populate the dropdowns
+function populateDepartmentDropdown() {
+	const divisionSelect = form.inputFields.get("division");
+
+	form.departments.forEach((dept) => {
+		const option = document.createElement("option");
+		option.value = dept.getDivName();
+		option.textContent = dept.getDivName();
+		divisionSelect.appendChild(option);
+	});
 }
 
-divisionSelect.addEventListener("change", function () {
-	// Input references
-	const deanRef = document.getElementById("dean-input");
-	const penRef = document.getElementById("pen-input");
-	const locRef = document.getElementById("loc-input");
-	const chairRef = document.getElementById("chair-input");
-	let selectedDivision = divisionSelect.value;
+// Function to add event listners for everything inside the form
+function addEventListeners() {
+	const divisionSelect = form.inputFields.get("division");
+	const editBtn = form.btns.get("edit");
+	const saveBtn = form.btns.get("save");
+	const cancelBtn = form.btns.get("cancel");
 
-	// Disable/Enable edit button
-	if (selectedDivision != "") {
-		editFormBtn.disabled = false;
-	} else {
-		editFormBtn.disabled = true;
-		deanRef.value = "";
-		penRef.value = "";
-		locRef.value = "";
-		chairRef.value = "";
+	divisionSelect.addEventListener("change", handleDivisionChange);
+	editBtn.addEventListener("click", editForm);
+	saveBtn.addEventListener("click", saveEdits);
+	cancelBtn.addEventListener("click", cancelEdits);
+}
+
+// Event handlers
+function handleDivisionChange() {
+	const divisionSelect = form.inputFields.get("division");
+	const selectedDivision = divisionSelect.value;
+	const editBtn = form.btns.get("edit");
+
+	if (selectedDivision === "") {
+		editBtn.disabled = true;
+		clearInputs(); // Call in case there is something in the inputs
+		return;
 	}
 
-	// For every element in the departments list
-	departments.forEach((element) => {
-		if (element.getDivName() == selectedDivision) {
-			deanRef.value = element.getDeanName();
-			penRef.value = element.getPenContact();
-			locRef.value = element.getLocRep();
-			chairRef.value = element.getChairName();
-		}
-	});
-});
+	// If selected dept exists
+	editBtn.disabled = false;
 
-// Add event listners for the forms buttons
-editFormBtn.addEventListener("click", editForm);
-cancelBtn.addEventListener("click", cancelEdits);
-saveBtn.addEventListener("click", saveEdits);
+	// Lookup and store the department reference that matches our select value
+	const dept = form.departments.find(
+		(d) => d.getDivName() === selectedDivision
+	);
 
-// Function to edit the form
+	// If we found a match, then fill the fields with the correct info for the dept.
+	if (dept) {
+		form.inputFields.get("dean").value = dept.getDeanName();
+		form.inputFields.get("pen").value = dept.getPenContact();
+		form.inputFields.get("loc").value = dept.getLocRep();
+		form.inputFields.get("chair").value = dept.getChairName();
+	}
+}
+
+// Function to edit the form, this will be called on clicked
 function editForm() {
-	// Change which buttons to show/hide
-	saveBtn.style.display = "block";
-	editFormBtn.style.display = "none";
-	cancelBtn.style.display = "block";
+	toggleButtonDisplay({ save: true, edit: false, cancel: true });
 
-	// Disable dropdown
-	divisionSelect.disabled = true;
+	// Disable dropdown while editing
+	form.inputFields.get("division").disabled = true;
 
-	// Enable input fields
-	inputFields.forEach((element) => {
-		element.disabled = false;
-	});
+	// Enable all text fields
+	form.fieldsArr.forEach((el) => (el.disabled = false));
 }
 
-// Function to save the edits
+// Function to save the edits, this will be called on clicked
 function saveEdits() {
-	// Input references
-	const deanRef = document.getElementById("dean-input");
-	const penRef = document.getElementById("pen-input");
-	const locRef = document.getElementById("loc-input");
-	const chairRef = document.getElementById("chair-input");
-	let selectedDivision = divisionSelect.value;
+	// Get all input fields from the form map
+	const divisionSelect = form.inputFields.get("division");
+	const deanRef = form.inputFields.get("dean");
+	const penRef = form.inputFields.get("pen");
+	const locRef = form.inputFields.get("loc");
+	const chairRef = form.inputFields.get("chair");
 
+	console.log(divisionSelect);
+
+	let selectedDivision = divisionSelect.value.trim();
+
+	// --- Input Validation ---
+	let isValid = true;
+
+	// Validate each input field
+	if (deanRef.value.trim() === "") {
+		isValid = false;
+	}
+
+	if (penRef.value.trim() === "") {
+		isValid = false;
+	}
+
+	if (locRef.value.trim() === "") {
+		isValid = false;
+	}
+
+	if (chairRef.value.trim() === "") {
+		isValid = false;
+	}
+
+	// If not valid, exit
+	if (!isValid) {
+		return;
+	}
+
+	// If valid, continue saving edits
 	// Change which buttons to show/hide
-	saveBtn.style.display = "none";
-	editFormBtn.style.display = "block";
-	cancelBtn.style.display = "none";
+	toggleButtonDisplay({ save: false, edit: true, cancel: false });
 
 	// Disable input fields
-	inputFields.forEach((element) => {
-		element.disabled = true;
-	});
+	form.fieldsArr.forEach((element) => (element.disabled = true));
 
-	// For every element in the departments list
-	departments.forEach((element) => {
-		if (element.getDivName() == selectedDivision) {
-			element.setDeanName(deanRef.value);
-			element.setPenContact(penRef.value);
-			element.setLocRep(locRef.value);
-			element.setChairName(chairRef.value);
+	// Update department data
+	form.departments.forEach((dept) => {
+		if (dept.getDivName() === selectedDivision) {
+			dept.setDeanName(deanRef.value);
+			dept.setPenContact(penRef.value);
+			dept.setLocRep(locRef.value);
+			dept.setChairName(chairRef.value);
 		}
 	});
+
+	// Re-enable dropdown
+	divisionSelect.disabled = false;
 }
 
-// Function to cancel edits
 function cancelEdits() {
-	// Input references
-	const deanRef = document.getElementById("dean-input");
-	const penRef = document.getElementById("pen-input");
-	const locRef = document.getElementById("loc-input");
-	const chairRef = document.getElementById("chair-input");
-	let selectedDivision = divisionSelect.value;
+	const divisionSelect = form.inputFields.get("division");
+	const selectedDivision = divisionSelect.value;
 
-	// Change which buttons to show/hide
-	saveBtn.style.display = "none";
-	editFormBtn.style.display = "block";
-	cancelBtn.style.display = "none";
+	const dept = form.departments.find(
+		(d) => d.getDivName() === selectedDivision
+	);
+	if (dept) {
+		form.inputFields.get("dean").value = dept.getDeanName();
+		form.inputFields.get("pen").value = dept.getPenContact();
+		form.inputFields.get("loc").value = dept.getLocRep();
+		form.inputFields.get("chair").value = dept.getChairName();
+	}
 
-	// Enable dropdown
 	divisionSelect.disabled = false;
+	form.fieldsArr.forEach((el) => (el.disabled = true));
+	toggleButtonDisplay({ save: false, edit: true, cancel: false });
+}
 
-	// For every element in the departments list
-	departments.forEach((element) => {
-		if (element.getDivName() == selectedDivision) {
-			deanRef.value = element.getDeanName();
-			penRef.value = element.getPenContact();
-			locRef.value = element.getLocRep();
-			chairRef.value = element.getChairName();
-		}
-	});
+// Helper functions
+function toggleButtonDisplay({ save, edit, cancel }) {
+	form.btns.get("save").style.display = save ? "block" : "none";
+	form.btns.get("edit").style.display = edit ? "block" : "none";
+	form.btns.get("cancel").style.display = cancel ? "block" : "none";
+}
 
-	// Disable input fields
-	inputFields.forEach((element) => {
-		element.disabled = true;
-	});
+function clearInputs() {
+	form.fieldsArr.forEach((el) => (el.value = ""));
 }

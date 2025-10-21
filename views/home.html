@@ -14,12 +14,12 @@
 	<body>
 		<main>
 			<h1>Edit Division</h1>
-			<form id="form" action="" method="get">
+			<form id="form">
 				<!-- Fieldset to select department -->
 				<fieldset>
 					<legend>Select a Department</legend>
 					<label for="division">Choose Divsion</label>
-					<select id="division" name="division">
+					<select id="division" name="division" required>
 						<option value="">-- Please Select A Department --</option>
 					</select>
 				</fieldset>
@@ -27,7 +27,7 @@
 				<!-- Fieldset to edit information -->
 				<fieldset>
 					<legend>Current Info</legend>
-					<label for="dean">Dean: </label>
+					<label for="dean-input">Dean: </label>
 					<input
 						type="text"
 						id="dean-input"
@@ -36,7 +36,7 @@
 						required
 						disabled
 					/>
-					<label for="pen">PEN Contact: </label>
+					<label for="pen-input">PEN Contact: </label>
 					<input
 						type="text"
 						id="pen-input"
@@ -45,7 +45,7 @@
 						required
 						disabled
 					/>
-					<label for="loc">LOC Representative: </label>
+					<label for="loc-input">LOC Representative: </label>
 					<input
 						type="text"
 						id="loc-input"
@@ -54,7 +54,7 @@
 						required
 						disabled
 					/>
-					<label for="chair">Chair: </label>
+					<label for="chair-input">Chair: </label>
 					<input
 						type="text"
 						id="chair-input"

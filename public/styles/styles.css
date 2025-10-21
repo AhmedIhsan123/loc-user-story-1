@@ -66,6 +66,12 @@ select {
 	border-radius: 5px;
 }
 
+#edit-form-btn:disabled {
+	color: grey;
+	background-color: lightgreen;
+	cursor: default;
+}
+
 .button {
 	background-color: #198754;
 	border-radius: 5px;

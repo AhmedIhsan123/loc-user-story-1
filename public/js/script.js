@@ -122,8 +122,6 @@ function saveEdits() {
 	const locRef = form.inputFields.get("loc");
 	const chairRef = form.inputFields.get("chair");
 
-	console.log(divisionSelect);
-
 	let selectedDivision = divisionSelect.value.trim();
 
 	// --- Input Validation ---
@@ -132,18 +130,30 @@ function saveEdits() {
 	// Validate each input field
 	if (deanRef.value.trim() === "") {
 		isValid = false;
+		document.getElementById("err-dean").style.display = "inline";
+	} else {
+		document.getElementById("err-dean").style.display = "none";
 	}
 
 	if (penRef.value.trim() === "") {
 		isValid = false;
+		document.getElementById("err-pen").style.display = "inline";
+	} else {
+		document.getElementById("err-pen").style.display = "none";
 	}
 
 	if (locRef.value.trim() === "") {
 		isValid = false;
+		document.getElementById("err-loc").style.display = "inline";
+	} else {
+		document.getElementById("err-loc").style.display = "none";
 	}
 
 	if (chairRef.value.trim() === "") {
 		isValid = false;
+		document.getElementById("err-chair").style.display = "inline";
+	} else {
+		document.getElementById("err-chair").style.display = "none";
 	}
 
 	// If not valid, exit
@@ -186,6 +196,7 @@ function cancelEdits() {
 		form.inputFields.get("chair").value = dept.getChairName();
 	}
 
+	clearErrors();
 	divisionSelect.disabled = false;
 	form.fieldsArr.forEach((el) => (el.disabled = true));
 	toggleButtonDisplay({ save: false, edit: true, cancel: false });
@@ -200,4 +211,11 @@ function toggleButtonDisplay({ save, edit, cancel }) {
 
 function clearInputs() {
 	form.fieldsArr.forEach((el) => (el.value = ""));
+}
+
+function clearErrors() {
+	document.getElementById("err-dean").style.display = "none";
+	document.getElementById("err-pen").style.display = "none";
+	document.getElementById("err-loc").style.display = "none";
+	document.getElementById("err-chair").style.display = "none";
 }

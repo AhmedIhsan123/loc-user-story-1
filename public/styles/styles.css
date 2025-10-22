@@ -93,6 +93,11 @@ select {
 	transform: scale(0.97);
 }
 
+.error {
+	color: red;
+	display: none;
+}
+
 #save-btn,
 #cancel-btn {
 	display: none;
